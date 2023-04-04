@@ -1,5 +1,6 @@
 package com.example.weatherapp
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,20 +13,39 @@ class MainViewModel(private val repo: Repository): ViewModel()  {
     private var _weatherData=MutableLiveData<WeatherRespond>()
     val weatherData:LiveData<WeatherRespond>
     get()=_weatherData
+    private var _locationMethod=MutableLiveData<LocationMethod>()
+    val locationMethod:LiveData<LocationMethod>
+    get()=_locationMethod
     private var _respondStat=MutableLiveData<RespondStat>()
     val respondStat:LiveData<RespondStat>
     get()=_respondStat
+
+    private var location:Pair<Double,Double> = Pair(0.0,0.0)
+
     init {
+
         _respondStat.value=RespondStat.LOADING
     }
+    fun setToGPS(){
+        _locationMethod.value=LocationMethod.GPS
+    }
+    fun setToMap(){
+        _locationMethod.value=LocationMethod.MAP
+    }
+    fun setLocation(lat:Double,long:Double){
+        location= Pair(lat,long)
+        getWeatherData()
+    }
 
-    fun getWeatherData(){
+    private fun getWeatherData(){
         viewModelScope.launch{
-            repo.weatherData(50.0,50.0).onSuccess{
+            repo.weatherData(location.first,location.second).onSuccess{
                 _weatherData.value=it
+                Log.i("TAG", "getWeatherData: ////////////////")
                 _respondStat.value=RespondStat.SUCCESS
             }.onFailure {
                 _respondStat.value=RespondStat.ERROR
+                Log.i("TAG", "getWeatherData: ${it.message}")
 
             }
         }
@@ -34,4 +54,7 @@ class MainViewModel(private val repo: Repository): ViewModel()  {
 enum class RespondStat{
     LOADING, ERROR, SUCCESS
 
+}
+enum class LocationMethod{
+    GPS, MAP
 }
