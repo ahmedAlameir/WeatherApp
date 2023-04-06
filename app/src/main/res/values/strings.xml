@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="today">Today</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="uv_rays">UV Rays</string>
+    <string name="dew_point">Dew Point</string>
+    <string name="wind">Wind</string>
+    <string name="clouds">Clouds</string>
+    <string name="forecast">Forecast</string>
+    <string name="details">Today’s Details</string>
+
 </resources>

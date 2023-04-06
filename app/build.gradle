@@ -82,5 +82,9 @@ dependencies {
 
     //location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation "androidx.compose.runtime:runtime-livedata:1.4.0"
+    def nav_version = "2.5.3"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 }
