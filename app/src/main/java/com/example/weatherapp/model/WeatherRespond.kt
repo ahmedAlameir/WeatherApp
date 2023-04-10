@@ -6,6 +6,7 @@ data class WeatherRespond(
     var lat: Double?= null,
     var lon:Double? = null,
     var timezone:String? = null,
+    @SerializedName("alerts") var alerts: List<Alerts>?=null,
     @SerializedName("timezone_offset" )var timezoneOffset:Int? = null,
     var current:Current? = Current(),
     var hourly:ArrayList<Hourly> = arrayListOf(),

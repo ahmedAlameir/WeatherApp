@@ -14,13 +14,12 @@ interface ApiService {
                            @Query("lon") lon:Double,
                            @Query("units") units:String,
                            @Query("lang") lang:String,
-                           @Query("appid") apiKey:String=BuildConfig.WEATHER_API_KEY):Result<WeatherRespond>
+                           @Query("appid") apiKey:String=BuildConfig.WEATHER_API_KEY):WeatherRespond
 }
 const val BASE_URL="https://api.openweathermap.org"
 private val retrofit = Retrofit
     .Builder()
     .addConverterFactory(GsonConverterFactory.create())
-    .addCallAdapterFactory(ResultCallAdapterFactory())
     .baseUrl(BASE_URL)
     .build()
 

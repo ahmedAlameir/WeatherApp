@@ -1,11 +1,13 @@
 package com.example.weatherapp.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Current (
     var dt : Int? = null,
     var sunrise : Int? = null,
     var sunset : Int? = null,
     var temp : Double? = null,
-    var feelsLike : Double? = null,
+    @SerializedName("feels_like") var feelsLike : Double? = null,
     var pressure : Int? = null,
     var humidity : Int? = null,
     var dewPoint : Double? = null,

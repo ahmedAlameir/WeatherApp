@@ -1,10 +1,18 @@
 package com.example.weatherapp.datasource
 
-import com.example.weatherapp.datasource.network.ApiService
+import com.example.weatherapp.model.AlertModel
+import com.example.weatherapp.model.FavouriteLocation
 import com.example.weatherapp.model.WeatherRespond
+import kotlinx.coroutines.flow.Flow
 
-class Repository(private val api: ApiService) {
-    suspend fun weatherData(lat:Double,lon:Double,units:String="",lang:String=""):Result<WeatherRespond>{
-        return api.weatherData(lat,lon,units,lang)
-    }
+interface Repository {
+    suspend fun weatherData(lat:Double,lon:Double,units:String="",lang:String=""):Flow<WeatherRespond>
+    suspend fun getFave(): Flow<List<FavouriteLocation>>
+    suspend fun deleteFave(favouriteLocation :FavouriteLocation)
+
+    suspend fun insertFave(favouriteLocation: FavouriteLocation)
+    suspend fun getAlarts(): Flow<List<AlertModel>>
+    suspend fun getAlart(name: String): AlertModel?
+    suspend fun deleteAlarts(alertModel: AlertModel)
+    suspend fun insertAlarts(alertModel: AlertModel)
 }
